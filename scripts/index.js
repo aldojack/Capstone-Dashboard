@@ -3,10 +3,9 @@ const bottomEl = document.getElementById('bottom');
 const middleEl = document.getElementById('middle');
 const topEl = document.getElementById('top');
 
-
 const renderBackground = async () => {
-    // const response = await fetch("https://api.unsplash.com/photos/random/?client_id=YWrg_TjOfr5O6pYWkN8DvgB0XH6GGO9JvhI72gk9TTY&orientation=landscape&query=puppy");
     try {
+        // const response = await fetch("https://api.unsplash.com/photos/random/?client_id=YWrg_TjOfr5O6pYWkN8DvgB0XH6GGO9JvhI72gk9TTY&orientation=landscape&query=puppy");
         const response = await fetch("https://apis.scrimba.com/unsplash/photos/random/?orientation=landscape&query=puppys");
         const data = await response.json();
         console.log("Unsplashed Data: ")
@@ -33,10 +32,12 @@ const renderCrypto = async () => {
         }
         const { name, image, market_data } = await response.json();
         const cryptoContainer = document.getElementById('crypto');
-        const cryptLogo = createElement('img', { class: ['crypto-thumb'], src: image.thumb })
+        const cryptLogo = createElement('img', { class: ['crypto-thumb'], src: image.small })
         const cryptName = createElement('p', {class: ['crypto-name'], text: name})
-        const cryptPrice = createElement('p', {class: ['crypto-price'], text: `Current Price: ${market_data.current_price.gbp}`})
-        cryptoContainer.append(cryptLogo, cryptName, cryptPrice)
+        const cryptPrice = createElement('p', { class: ['crypto-price'], text: `💰 Current: £${market_data.current_price.gbp}` })
+        const cryptHigh = createElement('p', { class: ['crypto-high'], text: `📈 24h High: £${market_data.high_24h.gbp}` });
+        const cryptLow = createElement('p', { class: ['crypto-low'],text: `📉 24h Low: £${market_data.low_24h.gbp}` });
+        cryptoContainer.append(cryptLogo, cryptName, cryptPrice, cryptHigh, cryptLow)
 /*         console.log("Crypto Name: ")
         console.log(name);
         console.log("Crypto Image: ")
@@ -48,5 +49,13 @@ const renderCrypto = async () => {
     }
 }
 
+const renderTime = () => {
+    middleEl.replaceChildren();
+    const time = new Date().toLocaleString('en-GB', { hour: 'numeric', minute: 'numeric', hour12: true });
+    const timeEl = createElement('p', { id: "time", text: time })
+    middleEl.append(timeEl)
+}
+
 renderBackground();
 renderCrypto();
+const clock = setInterval(renderTime, 1000);

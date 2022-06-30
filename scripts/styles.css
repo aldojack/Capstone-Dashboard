@@ -35,10 +35,10 @@ main{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 00.25em;
+    gap: 0.25em;
 }
 
-#crypto .crypto-price{
+#crypto .crypto-price, .crypto-high, .crypto-low{
     font-size: 0.70rem;
     flex-basis: 100%;
 }
