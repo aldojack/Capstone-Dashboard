@@ -36,11 +36,18 @@ main{
     flex-wrap: wrap;
     align-items: center;
     gap: 0.25em;
+    font-size: 0.8rem;
 }
 
 #crypto .crypto-price, .crypto-high, .crypto-low{
-    font-size: 0.70rem;
     flex-basis: 100%;
+}
+
+#weather{
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+    padding: 15px;
 }
 
 #middle{

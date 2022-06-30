@@ -56,6 +56,29 @@ const renderTime = () => {
     middleEl.append(timeEl)
 }
 
+const renderWeather = async (lat, long) => {
+    const weatherContainer = document.getElementById('weather');
+    const apiKey = "4c789e1362a1134b1f375090a5f37bb8";
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`);
+    const data = await response.json();
+    console.log(data);
+
+    const weatherImg = createElement('img', { class: ["weather-img"], src: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` })
+    const location = createElement('p', { class: ['weather-location'], text: data.name })
+    const currentTemp = createElement('p', { class: ['weather-current'], text: `Feels: ${Math.floor(data.main.temp)}c` });
+    const weatherDescription = createElement('p', { class: ['weather-description'], text: `Looks: ${data.weather[0].description}` })
+
+    weatherContainer.append(weatherImg, location, currentTemp, weatherDescription);
+}
+
 renderBackground();
 renderCrypto();
+
+navigator.geolocation.getCurrentPosition((position) => {
+    const cords = position.coords;
+    const lat = cords.latitude;
+    const long = cords.longitude; 
+    renderWeather(lat, long)
+});
+
 const clock = setInterval(renderTime, 1000);
