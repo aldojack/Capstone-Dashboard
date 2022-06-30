@@ -31,6 +31,18 @@ main{
     margin: 0.25rem 0.5rem 0;
 }
 
+#crypto{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 00.25em;
+}
+
+#crypto .crypto-price{
+    font-size: 0.70rem;
+    flex-basis: 100%;
+}
+
 #middle{
     align-self: center;
     font-size: 5em;
