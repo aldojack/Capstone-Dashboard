@@ -51,7 +51,7 @@ const renderCrypto = async () => {
 
 const renderTime = () => {
     middleEl.replaceChildren();
-    const time = new Date().toLocaleString('en-GB', { hour: 'numeric', minute: 'numeric', hour12: true });
+    const time = new Date().toLocaleTimeString('en-GB', { timeStyle: 'short', hour12: true });
     const timeEl = createElement('p', { id: "time", text: time })
     middleEl.append(timeEl)
 }
