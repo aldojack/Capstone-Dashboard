@@ -59,6 +59,10 @@ main{
     text-align: right;
 }
 
+#weather .weather-img{
+    display: block;
+}
+
 #weather .weather-temp{
     align-self: center;
     font-size: 1.5em;
@@ -92,6 +96,29 @@ main{
 
     main{
         padding: 0.5rem;
+    }
+
+    #weather{
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        min-width: 225px;
+        padding: 15px;
+        text-align: right;
+    }
+
+    #weather .weather-img{
+        display: none;
+    }
+
+    #weather .weather-temp{
+        align-self: flex-start;
+        font-size: 0.8em;
+    }
+
+    #weather .weather-location{
+        flex-basis: 50%;
+        margin-top: -0.1em;
     }
     #middle{
         font-size: 3.5em;
