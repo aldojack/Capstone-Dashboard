@@ -66,9 +66,9 @@ const renderWeather = async (lat, long) => {
     
         const weatherImg = createElement('img', { class: ["weather-img"], src: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` })
         const location = createElement('p', { class: ['weather-location'], text: data.name })
-        const currentTemp = createElement('p', { class: ['weather-temp'], text: `${Math.floor(data.main.temp)}` });
-        const span = createElement('span', { class: ['celsius'], text: 'O' })
-        currentTemp.append(span);
+        const currentTemp = createElement('p', { class: ['weather-temp'], text: `${Math.floor(data.main.temp)}°` });
+        // const span = createElement('span', { class: ['celsius'], text: 'O' })
+        // currentTemp.append(span);
     
         weatherContainer.append(weatherImg, currentTemp, location);
     } catch (error) {
