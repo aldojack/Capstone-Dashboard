@@ -13,7 +13,7 @@ const renderBackground = async () => {
         if (data.hasOwnProperty("errors")) {
             throw Error('Unable to fetch background from Unsplashed');
         }
-        const imageUrl = data.urls.regular;
+        const imageUrl = data.urls.small;
         const authorName = data.user.name
         const nameEl = createElement('p', {text: `By ${authorName}`})
         bottomEl.append(nameEl)

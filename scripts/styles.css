@@ -98,5 +98,6 @@ main{
     }
     #bottom{
         font-size: 1em;
+        margin-bottom: 4em;
     }
 }
