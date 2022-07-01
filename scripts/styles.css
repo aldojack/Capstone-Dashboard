@@ -43,11 +43,37 @@ main{
     flex-basis: 100%;
 }
 
+.crypto-header{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
 #weather{
     display: flex;
-    flex-direction: column;
-    font-size: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    /* align-items: center; */
+    min-width: 225px;
     padding: 15px;
+    text-align: right;
+}
+
+#weather .weather-temp{
+    align-self: center;
+    margin-top: 0.3em;
+    font-size: 1.75em;
+}
+
+#weather .weather-location{
+    flex-basis: 100%;
+}
+
+#weather .celsius {
+    font-size: 0.3em;
+    position: relative;
+    font-weight: 900;
+    top: -1.75em;
 }
 
 #middle{

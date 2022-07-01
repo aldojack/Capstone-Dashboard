@@ -28,22 +28,20 @@ const renderCrypto = async () => {
     try {
         const response = await fetch("https://api.coingecko.com/api/v3/coins/dogecoin");
         if (!response.ok) {
-            throw Error("No such coin found");
+            throw Error("No such crypto coin found");
         }
         const { name, image, market_data } = await response.json();
+
         const cryptoContainer = document.getElementById('crypto');
+        const cryptHeader = createElement('div', { class: ['crypto-header']});
         const cryptLogo = createElement('img', { class: ['crypto-thumb'], src: image.small })
-        const cryptName = createElement('p', {class: ['crypto-name'], text: name})
+        const cryptName = createElement('p', { class: ['crypto-name'], text: name })
+        cryptHeader.append(cryptLogo, cryptName);
         const cryptPrice = createElement('p', { class: ['crypto-price'], text: `💰 Current: £${market_data.current_price.gbp}` })
         const cryptHigh = createElement('p', { class: ['crypto-high'], text: `📈 24h High: £${market_data.high_24h.gbp}` });
         const cryptLow = createElement('p', { class: ['crypto-low'],text: `📉 24h Low: £${market_data.low_24h.gbp}` });
-        cryptoContainer.append(cryptLogo, cryptName, cryptPrice, cryptHigh, cryptLow)
-/*         console.log("Crypto Name: ")
-        console.log(name);
-        console.log("Crypto Image: ")
-        console.log(image.thumb)
-        console.log("Crypto Price: ")
-        console.log(market_data.current_price.gbp) */
+        cryptoContainer.append(cryptHeader, cryptPrice, cryptHigh, cryptLow)
+
     } catch (error) {
         console.error(error)
     }
@@ -57,28 +55,38 @@ const renderTime = () => {
 }
 
 const renderWeather = async (lat, long) => {
-    const weatherContainer = document.getElementById('weather');
-    const apiKey = "4c789e1362a1134b1f375090a5f37bb8";
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`);
-    const data = await response.json();
-    console.log(data);
+    try {
+        const weatherContainer = document.getElementById('weather');
+        const apiKey = "4c789e1362a1134b1f375090a5f37bb8";
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`);
+        if (!response.ok) {
+            throw Error("Unable to get weather information. ")
+        }
+        const data = await response.json();
+    
+        const weatherImg = createElement('img', { class: ["weather-img"], src: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` })
+        const location = createElement('p', { class: ['weather-location'], text: data.name })
+        const currentTemp = createElement('p', { class: ['weather-temp'], text: `${Math.floor(data.main.temp)}` });
+        const span = createElement('span', { class: ['celsius'], text: 'O' })
+        currentTemp.append(span);
+    
+        weatherContainer.append(weatherImg, currentTemp, location);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
-    const weatherImg = createElement('img', { class: ["weather-img"], src: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` })
-    const location = createElement('p', { class: ['weather-location'], text: data.name })
-    const currentTemp = createElement('p', { class: ['weather-current'], text: `Feels: ${Math.floor(data.main.temp)}c` });
-    const weatherDescription = createElement('p', { class: ['weather-description'], text: `Looks: ${data.weather[0].description}` })
+const getPosition = (position) => {
+    const { latitude: lat, longitude: long } = position.coords;
+    renderWeather(lat, long);
+}
 
-    weatherContainer.append(weatherImg, location, currentTemp, weatherDescription);
+const getLocationError = (err) => {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
 renderBackground();
 renderCrypto();
 
-navigator.geolocation.getCurrentPosition((position) => {
-    const cords = position.coords;
-    const lat = cords.latitude;
-    const long = cords.longitude; 
-    renderWeather(lat, long)
-});
-
-const clock = setInterval(renderTime, 1000);
+navigator.geolocation.getCurrentPosition(getPosition, getLocationError);
+setInterval(renderTime, 1000);

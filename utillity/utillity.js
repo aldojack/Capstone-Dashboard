@@ -10,6 +10,7 @@ export function createElement(type, options = {}) {
 
         if (key === 'text') {
             element.textContent = value;
+            return;
         }
         element.setAttribute(key, value);
     })
