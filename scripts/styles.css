@@ -66,6 +66,7 @@ main{
 
 #weather .weather-location{
     flex-basis: 100%;
+    margin-top: -1em;
 }
 
 #weather .celsius {
