@@ -1,4 +1,4 @@
-import { createElement } from "../utillity/utillity.js";
+import { createElement } from "./utillity/utillity.js";
 const bottomEl = document.getElementById('bottom');
 const middleEl = document.getElementById('middle');
 const topEl = document.getElementById('top');
